@@ -34,6 +34,12 @@ OP CODE can find in the ETH yellow paper.
 
 program counter pointer to the index of bytecode.
 
+## Solidity
+
+### Public vs. External
+
+Basically, public means it can be external or internal, the compiler need additional work for the public function. With the external only, it allows arguments to be read directly from calldata, saving the copying step.
+
 ## Truffle
 
 ### Trouble Shooting
@@ -70,3 +76,8 @@ web3.utils.toWei(1, 'ether')
 | Block time                   | ~3 seconds                               |
 | Data refresh latency         | ~6 seconds or 2 Blocks                   |
 
+## Online Tool
+
+Encoder
+
+(expired) https://toolkit.abdk.consulting/ethereum#rlp
