@@ -1,5 +1,39 @@
 # Dev Note - Web3
 
+## Concept
+
+### Bytecode instruction
+
+contract.json :: bytecode == Ganache :: Transactions :: Contract Creation :: TX DATA
+
+contract.json :: deployedBytecode is the data deployed on blockchain.
+
+```javascript
+// Get deployedBytecode
+web3.eth.getCode("{contract address}")
+```
+
+bytecode is a subcollection of deployedBytecode.
+
+EVM include: 1. storage 2. memory 3. stack
+
+OP CODE can find in the ETH yellow paper.
+
+```assembly
+0x15 ISZERO     # Simple not operator.
+0x34 CALLVALUE  # Get deposited value by th instuction/transaction responsible for this execution.
+0x39 CODECOPY   # Copy code running in current environment to memory.
+0x50 POP        # Remove item from stack.
+0x52 MSTORE     # Save word to memory.
+0x57 JUMP1      # Conditionally alter the program counter.
+0x5b JUMPDEST   # Mark a valid destinantion for jumps.
+0x60 PUSH1      # Place 1 byte item on stack.
+0x80 DUP1       # Duplicate 1st stack item.
+0xf3 RETURN     # Halt execution returning output data.
+```
+
+program counter pointer to the index of bytecode.
+
 ## Truffle
 
 ### Trouble Shooting
