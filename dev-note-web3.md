@@ -36,6 +36,14 @@ OP CODE can find in the ETH yellow paper.
 
 program counter pointer to the index of bytecode.
 
+mload(0xAB) Loads the word (32byte) located at the memory address 0xAB.
+
+MSTORE  // Save the data to memory
+
+Solidity always stores a free memory pointer at position 0x40.
+
+Fixed memory location 0x80 contains a pointer to the current "memory variable stack". It is updated on function entry and restored on function exit.
+
 ### Gas
 
 Gas Price : How much ETH for each gas unit. Gwei = 0.000 000 001 Eth
@@ -43,6 +51,19 @@ Gas Price  20 Gwei : Gas Price = 0.000 000 02 Eth
 
 The maximum fee : Tx Fee = Gas Limit * Gas Price.
 Normal transaction's Gas Limit = 21000.
+
+### Storage
+
+SLOT is the basic unit.
+
+each SLOT is 32 bytes.
+
+If there is still space in the 1 SLOT, the compiler will try to fill it up as much as possible.
+
+```solidity
+// keccak256(slot) + index of the item
+uint[] public cc;
+```
 
 ### Keccak-256
 
@@ -109,6 +130,38 @@ view - it indeicates that the function will not alter the storage state in any w
 
 pure - even more strict, indicating that it won't even read the storage state
 
+### private, internal
+
+private -> can be accessible only within the smart contract
+internal -> can be accessible within smart contract and also derived smart contract
+
+### require
+
+```solidity
+require(withdrawAmount < 1000000000000000000, "Cannot withdraw more than 1 ether");
+```
+
+### modifier
+
+```solidity
+modifier limitWithdraw(uint256 withdrawAmount) {
+    require(
+        withdrawAmount <= 100000000000000000,
+        "Cannot withdraw more than 0.1 ether"
+    );
+    _;
+}
+```
+
+### interface
+
+they cannot inherit from other smart contracts
+they can only inherit from other interfaces
+
+cannot declare a constructor
+cannot declare state variables
+all declared functions have to be external
+
 ## Web3
 
 ```javascript
@@ -157,14 +210,21 @@ web3.eth.sendTransaction({from: accounts[0], to: "0x6339248a77e255466A209EED18Fd
 // Query block with block height
 web3.eth.getBlock("9")
 
-const instance = await Faucet.deployed()
-
 instance.addFunds({value: "2000000000000000000"})
 
 // Call function by its signiture
 
 // addFunds() =[Keccak-256]=> 0xa26759cb...
 web3.eth.sendTransaction({from: accounts[0], to: '0xC138B35FA662D9601f6b12Efa7138157B57b1059', data: '0xa26759cb', value: '3000000000000000000'})
+
+instance.addFunds({value: "200000000000000000", from: accounts[0]})
+
+// get array item
+instance.funders(0)
+
+// Get the value store into eth address
+// position maybe a index or another address
+web3.eth.getStorageAt(address, position)
 ```
 
 ### Trouble Shooting
