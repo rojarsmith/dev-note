@@ -249,6 +249,10 @@ web3.toWei(1, 'ether')
 web3.utils.toWei(1, 'ether')
 ```
 
+#### ParserError: Source "/xxx.sol" not found: File import callback not supported
+
+Add new null line in the source file.
+
 ## JSON-RPC
 
 ```json
