@@ -253,6 +253,12 @@ web3.utils.toWei(1, 'ether')
 
 Add new null line in the source file.
 
+#### BREAKING CHANGE: webpack < 5 used to include polyfills for node.js core modules by default.
+
+```bash
+npm install --save react-scripts@4.0.3
+```
+
 ## JSON-RPC
 
 ```json
