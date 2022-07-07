@@ -116,6 +116,14 @@ nonce will not change : Input transaction, call contract
 
 Tailwind CSS is the Utility-First CSS make the front-end will not look like some standard template. VSCode support it.
 
+npm install -D tailwindcss postcss autoprefixer
+
+npx tailwindcss init -p
+
+#### Unknown at rule @tailwindcss(unknownAtRules)
+
+Install VScode plugin : PostCSS Language Support
+
 ## Solidity
 
 ### Public vs. External
@@ -165,7 +173,23 @@ all declared functions have to be external
 ## Web3
 
 ```javascript
-// 
+// Load metamask
+  if (window.ethereum) {
+        provider = window.ethereum;
+
+        try {
+          await provider.request({ method: "eth_requestAccounts" });
+        } catch {
+          console.error("User denied accounts access!");
+        }
+      } 
+```
+
+### npm
+
+```bash
+# A tiny utility for detecting the MetaMask Ethereum provider, or any provider injected at window.ethereum.
+npm install @metamask/detect-provider --save
 ```
 
 ## Truffle
@@ -257,6 +281,27 @@ Add new null line in the source file.
 
 ```bash
 npm install --save react-scripts@4.0.3
+```
+
+#### Uncaught ReferenceError: process is not defined
+
+Try npm start again.
+
+## jsconfig.json
+
+alias of file path.
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@pages/*": ["pages/*"],
+      "@components/*": ["components/*"],
+      "@styles/*": ["styles/*"]
+    }
+  }
+}
 ```
 
 ## JSON-RPC
